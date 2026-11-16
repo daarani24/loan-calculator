@@ -11,6 +11,7 @@
   var typeKey = root.getAttribute("data-loan-type");
   var typeInfo = Settings.LOAN_TYPES[typeKey];
   var currency = Cur.getCurrency(typeInfo.defaultCurrency);
+  var lastResult = null;
   var state = { amount: 0, rate: 0, term: 0, termUnit: "years", extra: 0 };
 
   function $(id) { return document.getElementById(id); }
@@ -111,6 +112,58 @@
     } else {
       saving.hidden = true;
     }
+    lastResult = r;
+    renderDonut(r);
+    renderSchedule(r);
+  }
+
+  function renderDonut(r) {
+    var p = r.totalPayment > 0 ? Math.min(100, (state.amount / r.totalPayment) * 100) : 100;
+    var i = Math.max(0, 100 - p);
+    $("donut-principal").setAttribute("stroke-dasharray", p + " " + (100 - p));
+    var ic = $("donut-interest");
+    ic.setAttribute("stroke-dasharray", i + " " + (100 - i));
+    ic.setAttribute("stroke-dashoffset", -p);
+    $("leg-principal").textContent = money(state.amount, 0) + " (" + p.toFixed(1) + "%)";
+    $("leg-interest").textContent = money(r.totalInterest, 0) + " (" + i.toFixed(1) + "%)";
+    $("donut").setAttribute("aria-label",
+      "Principal versus interest: principal " + p.toFixed(1) + " percent, interest " + i.toFixed(1) + " percent");
+  }
+
+  function tableRow(cells) {
+    return "<tr><td>" + cells.join("</td><td>") + "</td></tr>";
+  }
+
+  function renderMonthly(r) {
+    $("month-rows").innerHTML = r.rows.map(function (m) {
+      return tableRow([m.month, money(m.payment, 2), money(m.principal, 2), money(m.interest, 2), money(m.balance, 2)]);
+    }).join("");
+  }
+
+  function renderSchedule(r) {
+    var years = Engine.summarizeByYear(r.rows);
+    $("year-rows").innerHTML = years.map(function (y) {
+      return tableRow([y.year, money(y.principal, 0), money(y.interest, 0), money(y.balance, 0)]);
+    }).join("");
+
+    if ($("monthly-details").open) renderMonthly(r);
+  }
+
+  function downloadCsv() {
+    if (!lastResult) return;
+    var lines = ["Month,Payment,Principal,Interest,Balance"];
+    lastResult.rows.forEach(function (m) {
+      lines.push([m.month, m.payment.toFixed(2), m.principal.toFixed(2), m.interest.toFixed(2), m.balance.toFixed(2)].join(","));
+    });
+    var blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "loan-schedule-" + currency + ".csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   function fullRefresh() {
