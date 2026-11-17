@@ -11,8 +11,8 @@
   var typeKey = root.getAttribute("data-loan-type");
   var typeInfo = Settings.LOAN_TYPES[typeKey];
   var currency = Cur.getCurrency(typeInfo.defaultCurrency);
-  var lastResult = null;
   var state = { amount: 0, rate: 0, term: 0, termUnit: "years", extra: 0 };
+  var lastResult = null;
 
   function $(id) { return document.getElementById(id); }
 
@@ -112,6 +112,7 @@
     } else {
       saving.hidden = true;
     }
+
     lastResult = r;
     renderDonut(r);
     renderSchedule(r);
@@ -181,7 +182,7 @@
 
     inputs[f].addEventListener("input", function () {
       var v = parseFloat(inputs[f].value);
-      if (isNaN(v)) return;
+      if (isNaN(v)) return; 
       state[f] = clamp(f, v);
       sliders[f].value = state[f];
       render();
@@ -207,6 +208,11 @@
     applyDefaults();
     fullRefresh();
   });
+
+  $("monthly-details").addEventListener("toggle", function () {
+    if (this.open && lastResult) renderMonthly(lastResult);
+  });
+  $("download-csv").addEventListener("click", downloadCsv);
 
   Object.keys(Settings.CURRENCIES).forEach(function (code) {
     var opt = document.createElement("option");
