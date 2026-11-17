@@ -30,4 +30,11 @@ assert.ok(r.interestSaved > 0 && r.monthsSaved > 0, "savings should be positive"
 const principalSum = r.rows.reduce((s, row) => s + row.principal, 0);
 near(principalSum, 100000, 0.01, "principal repaid = loan amount");
 
+r = E.calculateLoan({ amount: 20000, rate: 8, term: 5, termUnit: "years", extra: 0 });
+const years = E.summarizeByYear(r.rows);
+assert.strictEqual(years.length, 5);
+near(years.reduce((s, y) => s + y.principal, 0), 20000, 0.01, "yearly principal total");
+near(years[4].balance, 0, 0.001, "yearly final balance");
+near(r.rows[0].interest, 133.33, 0.01, "month 1 interest");
+
 console.log("All engine tests passed");

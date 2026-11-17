@@ -65,12 +65,29 @@
       interestSaved: base.totalInterest - withExtra.totalInterest
     };
   }
+    
+  function summarizeByYear(rows) {
+    var years = [];
+    rows.forEach(function (row) {
+      var y = Math.ceil(row.month / 12);
+      var entry = years[y - 1];
+      if (!entry) {
+        entry = { year: y, principal: 0, interest: 0, balance: 0 };
+        years[y - 1] = entry;
+      }
+      entry.principal += row.principal;
+      entry.interest += row.interest;
+      entry.balance = row.balance;
+    });
+    return years;
+  }
 
   var api = {
     monthlyPayment: monthlyPayment,
     termToMonths: termToMonths,
     buildSchedule: buildSchedule,
-    calculateLoan: calculateLoan
+    calculateLoan: calculateLoan,
+    summarizeByYear: summarizeByYear
   };
 
   if (typeof module !== "undefined" && module.exports) module.exports = api;
