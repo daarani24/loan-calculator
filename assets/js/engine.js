@@ -3,8 +3,8 @@
 
   function monthlyPayment(principal, annualRate, months) {
     if (principal <= 0 || months <= 0) return 0;
-    var r = annualRate / 12 / 100; 
-    if (r === 0) return principal / months; 
+    var r = annualRate / 12 / 100;
+    if (r === 0) return principal / months;
     var f = Math.pow(1 + r, months);
     return (principal * r * f) / (f - 1);
   }
@@ -13,7 +13,7 @@
     return unit === "years" ? Math.round(value * 12) : Math.round(value);
   }
 
-  function buildSchedule(principal, annualRate, months, extraMonthly) {
+  function buildSchedule(principal, annualRate, months, extraMonthly, lump) {
     var r = annualRate / 12 / 100;
     var emi = monthlyPayment(principal, annualRate, months);
     var extra = extraMonthly > 0 ? extraMonthly : 0;
@@ -25,7 +25,7 @@
     for (var m = 1; m <= months && balance > 0.005; m++) {
       var interest = balance * r;
       var principalPaid = emi + extra - interest;
-
+      if (lump && lump.amount > 0 && m === lump.month) principalPaid += lump.amount;
       if (principalPaid > balance - 0.005) principalPaid = balance;
       balance -= principalPaid;
       totalInterest += interest;
@@ -50,9 +50,9 @@
 
   function calculateLoan(opts) {
     var months = termToMonths(opts.term, opts.termUnit);
-    var base = buildSchedule(opts.amount, opts.rate, months, 0);
+    var base = buildSchedule(opts.amount, opts.rate, months, 0, null);
     var withExtra = opts.extra > 0
-      ? buildSchedule(opts.amount, opts.rate, months, opts.extra)
+      ? buildSchedule(opts.amount, opts.rate, months, opts.extra, null)
       : base;
 
     return {
@@ -65,7 +65,32 @@
       interestSaved: base.totalInterest - withExtra.totalInterest
     };
   }
-    
+
+  function calculatePrepayment(opts) {
+    var months = termToMonths(opts.term, opts.termUnit);
+    var lump = null;
+    if (opts.lumpAmount > 0) {
+      lump = {
+        month: Math.min(Math.max(Math.round(opts.lumpMonth), 1), months),
+        amount: opts.lumpAmount
+      };
+    }
+    var base = buildSchedule(opts.amount, opts.rate, months, 0, null);
+    var plan = buildSchedule(opts.amount, opts.rate, months, opts.extra, lump);
+
+    return {
+      emi: base.emi,
+      baseMonths: base.months,
+      baseInterest: base.totalInterest,
+      newMonths: plan.months,
+      newInterest: plan.totalInterest,
+      newTotal: plan.totalPayment,
+      monthsSaved: base.months - plan.months,
+      interestSaved: base.totalInterest - plan.totalInterest,
+      rows: plan.rows
+    };
+  }
+
   function summarizeByYear(rows) {
     var years = [];
     rows.forEach(function (row) {
@@ -82,7 +107,6 @@
     return years;
   }
 
-    // Finds the yearly reducing rate that gives the same EMI
   function solveReducingRate(principal, emi, months) {
     if (emi * months <= principal) return 0;
     var lo = 0, hi = 100;
@@ -114,6 +138,7 @@
     termToMonths: termToMonths,
     buildSchedule: buildSchedule,
     calculateLoan: calculateLoan,
+    calculatePrepayment: calculatePrepayment,
     summarizeByYear: summarizeByYear,
     flatLoan: flatLoan
   };
