@@ -37,4 +37,13 @@ near(years.reduce((s, y) => s + y.principal, 0), 20000, 0.01, "yearly principal 
 near(years[4].balance, 0, 0.001, "yearly final balance");
 near(r.rows[0].interest, 133.33, 0.01, "month 1 interest");
 
+const fl = E.flatLoan(100000, 8, 60);
+near(fl.emi, 2333.33, 0.01, "flat EMI");
+near(fl.totalInterest, 40000, 0.01, "flat interest");
+near(fl.reducingRate, 14.12, 0.1, "reducing rate");
+
+near(E.monthlyPayment(100000, fl.reducingRate, 60), fl.emi, 0.001, "round trip EMI");
+
+near(E.flatLoan(100000, 0, 60).reducingRate, 0, 0.001, "0% flat");
+
 console.log("All engine tests passed");

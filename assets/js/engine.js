@@ -82,12 +82,40 @@
     return years;
   }
 
+    // Finds the yearly reducing rate that gives the same EMI
+  function solveReducingRate(principal, emi, months) {
+    if (emi * months <= principal) return 0;
+    var lo = 0, hi = 100;
+    for (var i = 0; i < 100; i++) {
+      var mid = (lo + hi) / 2;
+      if (monthlyPayment(principal, mid, months) < emi) lo = mid;
+      else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  function flatLoan(amount, flatRate, months) {
+    if (amount <= 0 || months <= 0) {
+      return { emi: 0, totalInterest: 0, totalPayment: 0, reducingRate: 0 };
+    }
+    var totalInterest = amount * (flatRate / 100) * (months / 12);
+    var totalPayment = amount + totalInterest;
+    var emi = totalPayment / months;
+    return {
+      emi: emi,
+      totalInterest: totalInterest,
+      totalPayment: totalPayment,
+      reducingRate: solveReducingRate(amount, emi, months)
+    };
+  }
+
   var api = {
     monthlyPayment: monthlyPayment,
     termToMonths: termToMonths,
     buildSchedule: buildSchedule,
     calculateLoan: calculateLoan,
-    summarizeByYear: summarizeByYear
+    summarizeByYear: summarizeByYear,
+    flatLoan: flatLoan
   };
 
   if (typeof module !== "undefined" && module.exports) module.exports = api;
