@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flat Rate to Reducing Rate Converter</title>
+  <meta name="description" content="Convert a flat interest rate to the real reducing balance rate, and see your EMI and total interest.">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to converter</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">EMI Loan Tools</a>
+      <nav aria-label="Main">
+        <a href="/emi-calculator/">EMI</a>
+        <a href="/loan-prepayment-calculator/">Prepayment</a>
+        <a href="/car-loan-calculator/">Car loan</a>
+        <a href="/home-loan-calculator/">Home loan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <h1>Flat Rate to Reducing Rate Converter</h1>
+    <p class="intro">A flat rate charges interest on the full loan for the whole term, so it looks lower than it really is. Enter your flat rate to see the equivalent reducing rate.</p>
+
+    <section class="calc" data-converter aria-label="Flat to reducing rate converter">
+      <div class="calc-grid">
+
+        <div class="calc-inputs">
+          <div class="field">
+            <label for="currency">Currency</label>
+            <select id="currency"></select>
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="amount-input">Loan amount</label>
+              <span class="field-value" id="amount-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="amount-input" inputmode="decimal"></div>
+            <input type="range" id="amount-slider" aria-label="Loan amount slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="rate-input">Flat interest rate (per year)</label>
+              <span class="field-value" id="rate-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="rate-input" inputmode="decimal"><span class="suffix">%</span></div>
+            <input type="range" id="rate-slider" aria-label="Flat interest rate slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="term-input">Loan term</label>
+              <span class="field-value" id="term-display"></span>
+            </div>
+            <div class="input-row">
+              <input type="number" id="term-input" inputmode="decimal">
+              <select id="term-unit" aria-label="Term unit">
+                <option value="years">Years</option>
+                <option value="months">Months</option>
+              </select>
+            </div>
+            <input type="range" id="term-slider" aria-label="Loan term slider">
+          </div>
+        </div>
+
+        <div class="calc-results" aria-live="polite">
+          <p class="result-label">Equivalent reducing rate (per year)</p>
+          <p class="result-main" id="res-reducing">-</p>
+          <dl class="result-list">
+            <div><dt>Monthly payment</dt><dd id="res-payment">-</dd></div>
+            <div><dt>Total interest</dt><dd id="res-interest">-</dd></div>
+            <div><dt>Total payment</dt><dd id="res-total">-</dd></div>
+          </dl>
+          <p class="result-saving" id="res-summary"></p>
+        </div>
+
+      </div>
+      <p class="note">Results are estimates for fixed-rate loans with equal monthly payments. A lender's offer may differ because of fees. This is not financial advice.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <nav aria-label="Footer">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/settings.js" defer></script>
+  <script src="/assets/js/currency.js" defer></script>
+  <script src="/assets/js/engine.js" defer></script>
+  <script src="/assets/js/converter.js" defer></script>
+</body>
+</html>
