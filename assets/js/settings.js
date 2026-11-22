@@ -10,6 +10,29 @@
   var DEFAULT_CURRENCY = "USD";
 
   var LOAN_TYPES = {
+
+    "prepayment": {
+      title: "Loan Prepayment Calculator",
+      defaultCurrency: "INR",
+      byCurrency: {
+        INR: {
+          amount: { start: 2500000, min: 100000, max: 50000000, step: 100000 },
+          rate: { start: 9, min: 0, max: 30, step: 0.1 },
+          term: { unit: "years", start: 20, min: 1, max: 30, step: 1 }
+        },
+        GBP: {
+          amount: { start: 200000, min: 5000, max: 2000000, step: 5000 },
+          rate: { start: 5, min: 0, max: 30, step: 0.1 },
+          term: { unit: "years", start: 25, min: 1, max: 30, step: 1 }
+        },
+        USD: {
+          amount: { start: 300000, min: 10000, max: 2000000, step: 5000 },
+          rate: { start: 6.5, min: 0, max: 30, step: 0.1 },
+          term: { unit: "years", start: 25, min: 1, max: 30, step: 1 }
+        }
+      }
+    },
+
     "flat-to-reducing": {
       title: "Flat Rate to Reducing Rate Converter",
       defaultCurrency: "INR",

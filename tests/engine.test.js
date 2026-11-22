@@ -46,4 +46,25 @@ near(E.monthlyPayment(100000, fl.reducingRate, 60), fl.emi, 0.001, "round trip E
 
 near(E.flatLoan(100000, 0, 60).reducingRate, 0, 0.001, "0% flat");
 
+const sumPrincipal = (rows) => rows.reduce((s, x) => s + x.principal, 0);
+
+let pp = E.calculatePrepayment({ amount: 12000, rate: 0, term: 12, termUnit: "months", extra: 0, lumpAmount: 6000, lumpMonth: 3 });
+assert.strictEqual(pp.baseMonths, 12);
+assert.strictEqual(pp.newMonths, 6);
+assert.strictEqual(pp.monthsSaved, 6);
+near(pp.newInterest, 0, 0.001, "0% prepayment interest");
+
+pp = E.calculatePrepayment({ amount: 100000, rate: 12, term: 12, termUnit: "months", extra: 0, lumpAmount: 20000, lumpMonth: 6 });
+assert.ok(pp.newMonths < 12, "lump sum should shorten the loan");
+assert.ok(pp.interestSaved > 0, "lump sum should save interest");
+near(sumPrincipal(pp.rows), 100000, 0.01, "principal repaid = loan amount");
+
+pp = E.calculatePrepayment({ amount: 100000, rate: 12, term: 12, termUnit: "months", extra: 0, lumpAmount: 1e9, lumpMonth: 1 });
+assert.strictEqual(pp.newMonths, 1);
+near(sumPrincipal(pp.rows), 100000, 0.01, "big lump principal");
+
+pp = E.calculatePrepayment({ amount: 100000, rate: 12, term: 12, termUnit: "months", extra: 0, lumpAmount: 0, lumpMonth: 1 });
+assert.strictEqual(pp.monthsSaved, 0);
+near(pp.interestSaved, 0, 0.001, "no prepayment saving");
+
 console.log("All engine tests passed");
