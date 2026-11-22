@@ -26,4 +26,16 @@ assert.strictEqual(C.getCurrency("INR"), "INR");
 
 assert.throws(function () { S.getConfig("nope", "USD"); });
 
+Object.keys(S.CURRENCIES).forEach(function (cur) {
+  var cfg = S.getConfig("loan-comparison", cur);
+  ["amount", "rate", "term"].forEach(function (field) {
+    var x = cfg[field];
+    var v = cfg.startB[field];
+    var label = "loan-comparison / " + cur + " / startB " + field;
+    assert.ok(x.min <= v && v <= x.max, label + ": outside min/max");
+    var n = (v - x.min) / x.step;
+    assert.ok(Math.abs(n - Math.round(n)) < 1e-9, label + ": not on a slider step");
+  });
+});
+
 console.log("All settings and currency tests passed");

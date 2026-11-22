@@ -133,6 +133,23 @@
     };
   }
 
+  function compareLoans(a, b) {
+    var ra = calculateLoan({ amount: a.amount, rate: a.rate, term: a.term, termUnit: a.termUnit, extra: 0 });
+    var rb = calculateLoan({ amount: b.amount, rate: b.rate, term: b.term, termUnit: b.termUnit, extra: 0 });
+    var interestDiff = rb.totalInterest - ra.totalInterest;
+    var cheaper = "same";
+    if (interestDiff > 0.005) cheaper = "a";
+    else if (interestDiff < -0.005) cheaper = "b";
+    return {
+      a: { emi: ra.emi, totalInterest: ra.totalInterest, totalPayment: ra.totalPayment, months: ra.months },
+      b: { emi: rb.emi, totalInterest: rb.totalInterest, totalPayment: rb.totalPayment, months: rb.months },
+      emiDiff: rb.emi - ra.emi,
+      interestDiff: interestDiff,
+      totalDiff: rb.totalPayment - ra.totalPayment,
+      cheaper: cheaper
+    };
+  }
+
   var api = {
     monthlyPayment: monthlyPayment,
     termToMonths: termToMonths,
@@ -140,7 +157,8 @@
     calculateLoan: calculateLoan,
     calculatePrepayment: calculatePrepayment,
     summarizeByYear: summarizeByYear,
-    flatLoan: flatLoan
+    flatLoan: flatLoan,
+    compareLoans: compareLoans
   };
 
   if (typeof module !== "undefined" && module.exports) module.exports = api;

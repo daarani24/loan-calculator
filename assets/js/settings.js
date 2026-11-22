@@ -11,6 +11,31 @@
 
   var LOAN_TYPES = {
 
+    "loan-comparison": {
+      title: "Loan Comparison Calculator",
+      defaultCurrency: "INR",
+      byCurrency: {
+        INR: {
+          amount: { start: 2500000, min: 10000, max: 100000000, step: 10000 },
+          rate: { start: 9, min: 0, max: 30, step: 0.1 },
+          term: { unit: "years", start: 20, min: 1, max: 30, step: 1 },
+          startB: { amount: 2500000, rate: 8.5, term: 20 }
+        },
+        GBP: {
+          amount: { start: 200000, min: 500, max: 2000000, step: 500 },
+          rate: { start: 5, min: 0, max: 30, step: 0.1 },
+          term: { unit: "years", start: 25, min: 1, max: 35, step: 1 },
+          startB: { amount: 200000, rate: 4.5, term: 25 }
+        },
+        USD: {
+          amount: { start: 300000, min: 1000, max: 3000000, step: 1000 },
+          rate: { start: 6.5, min: 0, max: 30, step: 0.1 },
+          term: { unit: "years", start: 25, min: 1, max: 35, step: 1 },
+          startB: { amount: 300000, rate: 6, term: 25 }
+        }
+      }
+    },
+
     "car-loan": {
       title: "Car Loan Calculator",
       defaultCurrency: "USD",

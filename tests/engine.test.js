@@ -67,4 +67,25 @@ pp = E.calculatePrepayment({ amount: 100000, rate: 12, term: 12, termUnit: "mont
 assert.strictEqual(pp.monthsSaved, 0);
 near(pp.interestSaved, 0, 0.001, "no prepayment saving");
 
+const loanA = { amount: 100000, rate: 12, term: 12, termUnit: "months" };
+
+let cmp = E.compareLoans(loanA, loanA);
+near(cmp.emiDiff, 0, 0.001, "same loans emi diff");
+near(cmp.interestDiff, 0, 0.001, "same loans interest diff");
+assert.strictEqual(cmp.cheaper, "same");
+
+cmp = E.compareLoans(loanA, { amount: 100000, rate: 10, term: 12, termUnit: "months" });
+near(cmp.a.emi, 8884.88, 0.02, "A emi");
+near(cmp.b.emi, 8791.59, 0.05, "B emi");
+near(cmp.emiDiff, -93.29, 0.05, "emi difference");
+assert.ok(cmp.interestDiff < 0, "B should cost less interest");
+assert.strictEqual(cmp.cheaper, "b");
+
+cmp = E.compareLoans(loanA, { amount: 100000, rate: 12, term: 24, termUnit: "months" });
+near(cmp.b.emi, 4707.35, 0.05, "24-month emi");
+assert.ok(cmp.emiDiff < 0, "longer term should lower the EMI");
+assert.ok(cmp.interestDiff > 0, "longer term should cost more interest");
+assert.strictEqual(cmp.cheaper, "a");
+near(cmp.totalDiff, cmp.b.totalPayment - cmp.a.totalPayment, 0.001, "total diff");
+
 console.log("All engine tests passed");
