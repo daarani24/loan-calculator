@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EMI Calculator</title>
+  <meta name="description" content="Calculate your monthly EMI, total interest and total payment for any loan.">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to calculator</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">EMI Loan Tools</a>
+      <nav aria-label="Main">
+        <a href="/emi-calculator/">EMI</a>
+        <a href="/loan-prepayment-calculator/">Prepayment</a>
+        <a href="/car-loan-calculator/">Car loan</a>
+        <a href="/home-loan-calculator/">Home loan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <h1>EMI Calculator</h1>
+    <p class="intro">Enter the loan amount, interest rate and term to see your EMI (equated monthly instalment) and the full repayment schedule.</p>
+
+    <section class="calc" data-loan-type="emi" aria-label="Loan calculator">
+      <div class="calc-grid">
+
+        <div class="calc-inputs">
+          <div class="field">
+            <label for="currency">Currency</label>
+            <select id="currency"></select>
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="amount-input">Loan amount</label>
+              <span class="field-value" id="amount-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="amount-input" inputmode="decimal"></div>
+            <input type="range" id="amount-slider" aria-label="Loan amount slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="rate-input">Interest rate (per year)</label>
+              <span class="field-value" id="rate-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="rate-input" inputmode="decimal"><span class="suffix">%</span></div>
+            <input type="range" id="rate-slider" aria-label="Interest rate slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="term-input">Loan term</label>
+              <span class="field-value" id="term-display"></span>
+            </div>
+            <div class="input-row">
+              <input type="number" id="term-input" inputmode="decimal">
+              <select id="term-unit" aria-label="Term unit">
+                <option value="years">Years</option>
+                <option value="months">Months</option>
+              </select>
+            </div>
+            <input type="range" id="term-slider" aria-label="Loan term slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="extra-input">Extra monthly payment (optional)</label>
+              <span class="field-value" id="extra-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="extra-input" inputmode="decimal"></div>
+            <input type="range" id="extra-slider" aria-label="Extra monthly payment slider">
+          </div>
+        </div>
+
+        <div class="calc-results" aria-live="polite">
+          <p class="result-label">Monthly payment (EMI)</p>
+          <p class="result-main" id="res-payment">-</p>
+          <dl class="result-list">
+            <div><dt>Total interest</dt><dd id="res-interest">-</dd></div>
+            <div><dt>Total payment</dt><dd id="res-total">-</dd></div>
+            <div><dt>Time to repay</dt><dd id="res-length">-</dd></div>
+          </dl>
+          <p class="result-saving" id="res-saving" hidden></p>
+        </div>
+
+      </div>
+
+      <div class="calc-extra">
+        <h2>Where your money goes</h2>
+        <div class="chart-wrap">
+          <svg id="donut" viewBox="0 0 36 36" role="img" aria-label="Principal versus interest chart">
+            <circle class="donut-ring" cx="18" cy="18" r="15.9155"></circle>
+            <circle class="donut-principal" id="donut-principal" cx="18" cy="18" r="15.9155" transform="rotate(-90 18 18)"></circle>
+            <circle class="donut-interest" id="donut-interest" cx="18" cy="18" r="15.9155" transform="rotate(-90 18 18)"></circle>
+          </svg>
+          <ul class="legend">
+            <li><span class="dot dot-principal"></span>Principal <strong id="leg-principal"></strong></li>
+            <li><span class="dot dot-interest"></span>Interest <strong id="leg-interest"></strong></li>
+          </ul>
+        </div>
+
+        <details class="schedule" id="schedule">
+          <summary>Payment schedule</summary>
+          <div class="table-wrap">
+            <table>
+              <caption>Yearly summary</caption>
+              <thead>
+                <tr><th scope="col">Year</th><th scope="col">Principal paid</th><th scope="col">Interest paid</th><th scope="col">Balance left</th></tr>
+              </thead>
+              <tbody id="year-rows"></tbody>
+            </table>
+          </div>
+          <details id="monthly-details">
+            <summary>Show month-by-month schedule</summary>
+            <div class="table-wrap table-scroll">
+              <table>
+                <caption>Monthly schedule</caption>
+                <thead>
+                  <tr><th scope="col">Month</th><th scope="col">Payment</th><th scope="col">Principal</th><th scope="col">Interest</th><th scope="col">Balance</th></tr>
+                </thead>
+                <tbody id="month-rows"></tbody>
+              </table>
+            </div>
+          </details>
+        </details>
+
+        <button type="button" id="download-csv" class="btn">Download schedule (CSV)</button>
+      </div>
+
+      <p class="note">Results are estimates for fixed-rate loans. A lender's offer may differ because of fees and rate changes. This is not financial advice.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <nav aria-label="Footer">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/settings.js" defer></script>
+  <script src="/assets/js/currency.js" defer></script>
+  <script src="/assets/js/engine.js" defer></script>
+  <script src="/assets/js/app.js" defer></script>
+</body>
+</html>
