@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loan Comparison Calculator</title>
+  <meta name="description" content="Compare two loans side by side: monthly payment, total interest and total cost.">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to calculator</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">EMI Loan Tools</a>
+      <nav aria-label="Main">
+        <a href="/emi-calculator/">EMI</a>
+        <a href="/loan-prepayment-calculator/">Prepayment</a>
+        <a href="/car-loan-calculator/">Car loan</a>
+        <a href="/home-loan-calculator/">Home loan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <h1>Loan Comparison Calculator</h1>
+    <p class="intro">Enter two loans to compare their monthly payment, total interest and total cost side by side.</p>
+
+    <section class="calc" data-compare aria-label="Loan comparison calculator">
+
+      <div class="field">
+        <label for="currency">Currency</label>
+        <select id="currency"></select>
+      </div>
+
+      <div class="compare-loans">
+
+        <div class="loan-card" aria-labelledby="loan-a-title">
+          <h2 id="loan-a-title">Loan A</h2>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="a-amount-input">Loan A amount</label>
+              <span class="field-value" id="a-amount-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="a-amount-input" inputmode="decimal"></div>
+            <input type="range" id="a-amount-slider" aria-label="Loan A amount slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="a-rate-input">Loan A interest rate (per year)</label>
+              <span class="field-value" id="a-rate-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="a-rate-input" inputmode="decimal"><span class="suffix">%</span></div>
+            <input type="range" id="a-rate-slider" aria-label="Loan A interest rate slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="a-term-input">Loan A term</label>
+              <span class="field-value" id="a-term-display"></span>
+            </div>
+            <div class="input-row">
+              <input type="number" id="a-term-input" inputmode="decimal">
+              <select id="a-term-unit" aria-label="Loan A term unit">
+                <option value="years">Years</option>
+                <option value="months">Months</option>
+              </select>
+            </div>
+            <input type="range" id="a-term-slider" aria-label="Loan A term slider">
+          </div>
+        </div>
+
+        <div class="loan-card" aria-labelledby="loan-b-title">
+          <h2 id="loan-b-title">Loan B</h2>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="b-amount-input">Loan B amount</label>
+              <span class="field-value" id="b-amount-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="b-amount-input" inputmode="decimal"></div>
+            <input type="range" id="b-amount-slider" aria-label="Loan B amount slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="b-rate-input">Loan B interest rate (per year)</label>
+              <span class="field-value" id="b-rate-display"></span>
+            </div>
+            <div class="input-row"><input type="number" id="b-rate-input" inputmode="decimal"><span class="suffix">%</span></div>
+            <input type="range" id="b-rate-slider" aria-label="Loan B interest rate slider">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="b-term-input">Loan B term</label>
+              <span class="field-value" id="b-term-display"></span>
+            </div>
+            <div class="input-row">
+              <input type="number" id="b-term-input" inputmode="decimal">
+              <select id="b-term-unit" aria-label="Loan B term unit">
+                <option value="years">Years</option>
+                <option value="months">Months</option>
+              </select>
+            </div>
+            <input type="range" id="b-term-slider" aria-label="Loan B term slider">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="calc-results compare-results" aria-live="polite">
+        <h2>Comparison</h2>
+        <p class="result-saving" id="cmp-summary"></p>
+        <div class="table-wrap">
+          <table>
+            <caption>Loan A compared with Loan B</caption>
+            <thead>
+              <tr>
+                <th scope="col">What you pay</th>
+                <th scope="col">Loan A</th>
+                <th scope="col">Loan B</th>
+                <th scope="col">Difference (B minus A)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Monthly payment</th>
+                <td id="cmp-a-emi">-</td>
+                <td id="cmp-b-emi">-</td>
+                <td id="cmp-diff-emi">-</td>
+              </tr>
+              <tr>
+                <th scope="row">Total interest</th>
+                <td id="cmp-a-interest">-</td>
+                <td id="cmp-b-interest">-</td>
+                <td id="cmp-diff-interest">-</td>
+              </tr>
+              <tr>
+                <th scope="row">Total payment</th>
+                <td id="cmp-a-total">-</td>
+                <td id="cmp-b-total">-</td>
+                <td id="cmp-diff-total">-</td>
+              </tr>
+              <tr>
+                <th scope="row">Time to repay</th>
+                <td id="cmp-a-length">-</td>
+                <td id="cmp-b-length">-</td>
+                <td id="cmp-diff-length">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="note">Results are estimates for fixed-rate loans. A lender's offer may differ because of fees and rate changes. If the two loan amounts are different, compare total interest rather than total payment. This is not financial advice.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <nav aria-label="Footer">
+        <a href="/about/">About</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/settings.js" defer></script>
+  <script src="/assets/js/currency.js" defer></script>
+  <script src="/assets/js/engine.js" defer></script>
+  <script src="/assets/js/compare.js" defer></script>
+</body>
+</html>
