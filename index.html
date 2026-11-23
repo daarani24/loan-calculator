@@ -3,9 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Loan Repayment Calculator</title>
-  <meta name="description" content="Work out your monthly loan payment, total interest and total cost.">
+  <title>Loan Repayment Calculator | EMI Loan Tools</title>
+  <meta name="description" content="Free loan repayment calculator. Enter the amount, rate and term to see your monthly payment, total interest and a full payment schedule.">
+  <link rel="canonical" href="https://emi-loan-tools.netlify.app/">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is my monthly loan payment calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The calculator uses the standard fixed-rate loan formula. It turns the yearly interest rate into a monthly rate, then finds the equal monthly payment that repays the loan amount plus interest over the number of months you choose."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is so much of my early payment interest?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Interest is charged on the balance you still owe. At the start the balance is at its highest, so more of each payment goes to interest. As the balance falls, more of each payment goes to principal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this calculator include fees or insurance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It only uses the amount, interest rate and term you enter. Processing fees, insurance, taxes and changes to your rate can make a real loan cost more, so ask your lender for the exact figures."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if the interest rate is 0%?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "With a 0% rate there is no interest, so the monthly payment is the loan amount divided by the number of months."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the currency switch convert my money?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It only changes the symbol, number format and starting values. It does not convert amounts between currencies."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to calculator</a>
@@ -90,6 +139,7 @@
         </div>
 
       </div>
+
       <div class="calc-extra">
         <h2>Where your money goes</h2>
         <div class="chart-wrap">
@@ -131,7 +181,52 @@
 
         <button type="button" id="download-csv" class="btn">Download schedule (CSV)</button>
       </div>
+
       <p class="note">Results are estimates for fixed-rate loans. A lender's offer may differ because of fees and rate changes. This is not financial advice.</p>
+    </section>
+
+    <section class="content prose" aria-label="About this calculator">
+      <h2>How this loan repayment calculator works</h2>
+      <p>Most loans, such as personal, car and home loans, are repaid in equal monthly payments. This calculator finds that payment for you. You enter the loan amount, the yearly interest rate and how long you will take to repay. It then shows your monthly payment, the total interest, the total you will pay and a full payment schedule.</p>
+      <p>The monthly payment comes from this standard formula for a fixed-rate loan:</p>
+      <p><code>Payment = P × r × (1 + r)^n ÷ ((1 + r)^n − 1)</code></p>
+      <p>Here <code>P</code> is the loan amount, <code>r</code> is the monthly interest rate (the yearly rate divided by 12) and <code>n</code> is the number of monthly payments. You can also add an extra monthly payment to see how much sooner you could finish and how much interest you would save.</p>
+
+      <h2>A worked example</h2>
+      <p>Take a loan of $20,000 at 8% a year, repaid over 5 years (60 months).</p>
+      <ul>
+        <li>The monthly rate is 8% ÷ 12, which is about 0.6667%.</li>
+        <li>The monthly payment comes to about $405.53.</li>
+        <li>Over 60 payments you pay about $24,332 in total. About $4,332 of that is interest.</li>
+        <li>In the first month, interest is $20,000 × 0.6667%, which is $133.33. So only about $272 of your first payment reduces the loan.</li>
+      </ul>
+      <p>These are the starting values in the $ USD calculator above, so you can check the figures yourself.</p>
+
+      <h2>Tips to pay less interest</h2>
+      <ul>
+        <li><strong>Choose a shorter term if you can afford it.</strong> The monthly payment is higher, but the total interest is much lower.</li>
+        <li><strong>Pay a little extra each month.</strong> Extra money goes straight to the balance. Try the extra payment box above, or the <a href="/loan-prepayment-calculator/">loan prepayment calculator</a>.</li>
+        <li><strong>Compare offers.</strong> A small difference in the interest rate adds up over many years. The <a href="/loan-comparison-calculator/">loan comparison calculator</a> shows two loans side by side.</li>
+        <li><strong>Borrow only what you need.</strong> A smaller loan means less interest.</li>
+        <li><strong>Ask about fees.</strong> Processing fees and prepayment charges change the real cost of a loan, so ask your lender before you sign.</li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How is my monthly loan payment calculated?</h3>
+      <p>The calculator uses the standard fixed-rate loan formula. It turns the yearly interest rate into a monthly rate, then finds the equal monthly payment that repays the loan amount plus interest over the number of months you choose.</p>
+
+      <h3>Why is so much of my early payment interest?</h3>
+      <p>Interest is charged on the balance you still owe. At the start the balance is at its highest, so more of each payment goes to interest. As the balance falls, more of each payment goes to principal.</p>
+
+      <h3>Does this calculator include fees or insurance?</h3>
+      <p>No. It only uses the amount, interest rate and term you enter. Processing fees, insurance, taxes and changes to your rate can make a real loan cost more, so ask your lender for the exact figures.</p>
+
+      <h3>What if the interest rate is 0%?</h3>
+      <p>With a 0% rate there is no interest, so the monthly payment is the loan amount divided by the number of months.</p>
+
+      <h3>Does the currency switch convert my money?</h3>
+      <p>No. It only changes the symbol, number format and starting values. It does not convert amounts between currencies.</p>
     </section>
   </main>
 
