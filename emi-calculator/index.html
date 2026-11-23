@@ -3,9 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EMI Calculator</title>
-  <meta name="description" content="Calculate your monthly EMI, total interest and total payment for any loan.">
+  <title>EMI Calculator | EMI Loan Tools</title>
+  <meta name="description" content="Free EMI calculator. Enter the loan amount, interest rate and tenure to see your monthly EMI, total interest and a full repayment schedule.">
+  <link rel="canonical" href="https://emi-loan-tools.netlify.app/emi-calculator/">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does EMI stand for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EMI stands for equated monthly instalment. It is the fixed amount you pay every month until a loan is fully repaid. Each EMI covers part of the interest and part of the loan amount."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is EMI calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EMI is worked out from the loan amount, the monthly interest rate and the number of months. The monthly rate is the yearly rate divided by 12. The formula finds the equal payment that clears the loan, with interest, by the last month."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does a longer loan term lower my EMI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, a longer term lowers the monthly EMI, but you pay interest for more months, so the total interest is higher. A shorter term does the opposite: a higher EMI and less total interest."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the EMI the same on a flat rate and a reducing rate loan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. A flat rate charges interest on the full loan amount for the whole term, so the same stated rate costs more than a reducing rate. This calculator uses a reducing balance, which is how most standard loans work."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does an extra monthly payment change my EMI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In this calculator the EMI stays the same. The extra amount repays the loan faster, so you finish sooner and pay less total interest."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to calculator</a>
@@ -134,6 +183,53 @@
       </div>
 
       <p class="note">Results are estimates for fixed-rate loans. A lender's offer may differ because of fees and rate changes. This is not financial advice.</p>
+    </section>
+
+    <section class="content prose" aria-label="About this calculator">
+      <h2>What is an EMI?</h2>
+      <p>An EMI, or equated monthly instalment, is the fixed amount you pay your lender every month until a loan is fully repaid. Home loans, car loans, personal loans and education loans are all usually repaid this way. Every EMI has two parts. One part pays the interest for that month, and the other part reduces the loan amount you still owe.</p>
+      <p>This EMI calculator shows your monthly payment straight away. It also shows the total interest, the total you will pay, how your money is split between principal and interest, and a full payment schedule you can download.</p>
+
+      <h2>The EMI formula</h2>
+      <p>For a loan with a fixed interest rate, the EMI is worked out like this:</p>
+      <p><code>EMI = P × r × (1 + r)^n ÷ ((1 + r)^n − 1)</code></p>
+      <p>Here <code>P</code> is the loan amount, <code>r</code> is the monthly interest rate (the yearly rate divided by 12) and <code>n</code> is the number of monthly payments. If a loan has no interest, the EMI is just the loan amount divided by the number of months.</p>
+
+      <h2>A worked example</h2>
+      <p>Take a loan of ₹5,00,000 at 10% a year for 5 years (60 months). These are the starting values in the ₹ INR calculator above.</p>
+      <ul>
+        <li>The monthly interest rate is 10% ÷ 12, which is about 0.8333%.</li>
+        <li>The EMI comes to about ₹10,624.</li>
+        <li>Over 60 months you pay about ₹6.37 lakh in total, and about ₹1.37 lakh of that is interest.</li>
+        <li>In the first month the interest is ₹5,00,000 × 0.8333%, which is ₹4,166.67. So only about ₹6,457 of your first EMI reduces the loan.</li>
+      </ul>
+      <p>You can check these figures in the calculator and in the monthly schedule.</p>
+
+      <h2>How to keep your EMI and interest low</h2>
+      <ul>
+        <li><strong>Balance the term.</strong> A longer term gives a smaller EMI but more total interest. A shorter term does the opposite, so pick the shortest term your budget can handle.</li>
+        <li><strong>Pay extra when you can.</strong> Extra money goes to the balance and cuts the interest. The <a href="/loan-prepayment-calculator/">loan prepayment calculator</a> shows how much time and interest a one-time payment saves.</li>
+        <li><strong>Check the real rate.</strong> If a lender quotes a flat rate, convert it with the <a href="/flat-to-reducing-rate-converter/">flat rate to reducing rate converter</a> before you compare offers.</li>
+        <li><strong>Compare two offers.</strong> A small difference in the rate adds up over many years. Try the <a href="/loan-comparison-calculator/">loan comparison calculator</a>.</li>
+        <li><strong>Ask about fees.</strong> Processing fees, insurance and prepayment charges are not included here, so ask your lender for the full cost.</li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What does EMI stand for?</h3>
+      <p>EMI stands for equated monthly instalment. It is the fixed amount you pay every month until a loan is fully repaid. Each EMI covers part of the interest and part of the loan amount.</p>
+
+      <h3>How is EMI calculated?</h3>
+      <p>EMI is worked out from the loan amount, the monthly interest rate and the number of months. The monthly rate is the yearly rate divided by 12. The formula finds the equal payment that clears the loan, with interest, by the last month.</p>
+
+      <h3>Does a longer loan term lower my EMI?</h3>
+      <p>Yes, a longer term lowers the monthly EMI, but you pay interest for more months, so the total interest is higher. A shorter term does the opposite: a higher EMI and less total interest.</p>
+
+      <h3>Is the EMI the same on a flat rate and a reducing rate loan?</h3>
+      <p>No. A flat rate charges interest on the full loan amount for the whole term, so the same stated rate costs more than a reducing rate. This calculator uses a reducing balance, which is how most standard loans work.</p>
+
+      <h3>Does an extra monthly payment change my EMI?</h3>
+      <p>In this calculator the EMI stays the same. The extra amount repays the loan faster, so you finish sooner and pay less total interest.</p>
     </section>
   </main>
 
