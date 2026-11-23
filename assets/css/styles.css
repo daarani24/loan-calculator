@@ -138,3 +138,6 @@ th { background: var(--primary-soft); }
 .prose ul { padding-left: 22px; }
 .prose a { color: var(--primary-dark); }
 .prose code { background: var(--primary-soft); padding: 2px 6px; border-radius: 4px; overflow-wrap: anywhere; }
+
+.content { margin-top: 40px; }
+.prose h3 { font-size: 1.1rem; line-height: 1.35; margin: 20px 0 6px; }
