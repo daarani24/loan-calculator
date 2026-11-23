@@ -3,9 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Flat Rate to Reducing Rate Converter</title>
-  <meta name="description" content="Convert a flat interest rate to the real reducing balance rate, and see your EMI and total interest.">
+  <title>Flat Rate to Reducing Rate Converter | EMI Loan Tools</title>
+  <meta name="description" content="Free flat rate to reducing rate converter. Enter the flat rate, amount and term to see the real yearly rate, EMI and total interest.">
+  <link rel="canonical" href="https://emi-loan-tools.netlify.app/flat-to-reducing-rate-converter/">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a flat interest rate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A flat interest rate charges interest on the full loan amount for the whole term, even though you repay part of the loan every month. This makes the real cost higher than the stated rate suggests."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I convert a flat rate to a reducing rate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "First work out the flat-rate EMI by adding the total flat interest to the loan amount and dividing by the number of months. Then find the yearly reducing rate that gives the same EMI. This converter does both steps for you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is the reducing rate higher than the flat rate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On a flat-rate loan you keep paying interest on the original amount even after you have repaid part of it. A reducing rate charges interest only on what you still owe, so the same total interest needs a higher yearly rate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which rate should I use to compare loans?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Compare reducing rates, or compare the total interest and total payment in money terms. A flat rate and a reducing rate cannot be compared directly, because they are worked out in different ways."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the result exact for my loan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It is an estimate for a loan with equal monthly payments. Processing fees, insurance and other charges are not included, so the effective cost can be higher. Ask your lender for the full cost."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to converter</a>
@@ -82,6 +131,55 @@
 
       </div>
       <p class="note">Results are estimates for fixed-rate loans with equal monthly payments. A lender's offer may differ because of fees. This is not financial advice.</p>
+    </section>
+
+    <section class="content prose" aria-label="About this converter">
+      <h2>Flat rate and reducing rate: what is the difference?</h2>
+      <p>Some lenders quote a flat interest rate, especially on personal, car and two-wheeler loans. With a flat rate, interest is worked out on the full loan amount for the whole term. You repay part of the loan every month, but the interest is still charged as if you owed all of it. That is why a flat rate looks small but costs more than the same number on a reducing balance.</p>
+      <p>A reducing rate, also called a reducing balance rate, charges interest only on the amount you still owe. Home loans and most bank loans use it. Because the two rates are worked out differently, you cannot compare a flat rate with a reducing rate directly. This converter turns the flat rate into the reducing rate, so you can compare offers fairly.</p>
+
+      <h2>How the conversion works</h2>
+      <p>The converter uses two steps:</p>
+      <ul>
+        <li><strong>Step 1:</strong> Total interest = loan amount × flat rate × years. Then EMI = (loan amount + total interest) ÷ number of months.</li>
+        <li><strong>Step 2:</strong> It finds the yearly reducing rate that gives the same EMI for the same loan amount and term.</li>
+      </ul>
+      <p>Step 2 has no simple formula, so the converter searches for the rate by trial, getting closer each time, until the EMI matches. The reducing rate is shown to two decimal places. If the flat rate is 0%, the reducing rate is also 0%.</p>
+
+      <h2>A worked example</h2>
+      <p>Take a loan of ₹5,00,000 at 8% flat for 5 years. These are the starting values in the ₹ INR converter above.</p>
+      <ul>
+        <li>Total interest is ₹5,00,000 × 8% × 5, which is ₹2,00,000.</li>
+        <li>Total payment is ₹7,00,000, so the EMI over 60 months is ₹11,666.67.</li>
+        <li>The reducing rate that gives this same EMI is about 14.1% per year.</li>
+        <li>For comparison, an 8% reducing rate loan with the same amount and term would have an EMI of about ₹10,138 and total interest of about ₹1.08 lakh.</li>
+      </ul>
+      <p>So an 8% flat rate is far more expensive than an 8% reducing rate. You can check the 8% reducing figure in the <a href="/emi-calculator/">EMI calculator</a>.</p>
+
+      <h2>Tips before you accept a flat-rate loan</h2>
+      <ul>
+        <li><strong>Always convert the rate.</strong> Use the reducing rate, not the flat rate, to compare with other loans.</li>
+        <li><strong>Compare money, not percentages.</strong> Put both offers side by side in the <a href="/loan-comparison-calculator/">loan comparison calculator</a> and look at total interest.</li>
+        <li><strong>Ask about fees.</strong> Processing fees and prepayment charges raise the real cost and are not included here.</li>
+        <li><strong>Check prepayment rules.</strong> On some flat-rate loans, paying early saves less than you would expect. The <a href="/loan-prepayment-calculator/">loan prepayment calculator</a> shows savings for a normal reducing loan, so ask your lender how your loan treats early payments.</li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What is a flat interest rate?</h3>
+      <p>A flat interest rate charges interest on the full loan amount for the whole term, even though you repay part of the loan every month. This makes the real cost higher than the stated rate suggests.</p>
+
+      <h3>How do I convert a flat rate to a reducing rate?</h3>
+      <p>First work out the flat-rate EMI by adding the total flat interest to the loan amount and dividing by the number of months. Then find the yearly reducing rate that gives the same EMI. This converter does both steps for you.</p>
+
+      <h3>Why is the reducing rate higher than the flat rate?</h3>
+      <p>On a flat-rate loan you keep paying interest on the original amount even after you have repaid part of it. A reducing rate charges interest only on what you still owe, so the same total interest needs a higher yearly rate.</p>
+
+      <h3>Which rate should I use to compare loans?</h3>
+      <p>Compare reducing rates, or compare the total interest and total payment in money terms. A flat rate and a reducing rate cannot be compared directly, because they are worked out in different ways.</p>
+
+      <h3>Is the result exact for my loan?</h3>
+      <p>It is an estimate for a loan with equal monthly payments. Processing fees, insurance and other charges are not included, so the effective cost can be higher. Ask your lender for the full cost.</p>
     </section>
   </main>
 
