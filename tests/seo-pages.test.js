@@ -6,7 +6,7 @@ const root = path.join(__dirname, "..");
 const robots = fs.readFileSync(path.join(root, "robots.txt"), "utf8");
 const base = robots.match(/Sitemap:\s*(\S+)/)[1].replace(/sitemap\.xml$/, "");
 
-const DONE = ["index.html", "emi-calculator/index.html", "flat-to-reducing-rate-converter/index.html"];
+const DONE = ["index.html", "emi-calculator/index.html", "flat-to-reducing-rate-converter/index.html", "loan-prepayment-calculator/index.html"];
 
 function urlFor(file) { return base + file.replace(/index\.html$/, ""); }
 
